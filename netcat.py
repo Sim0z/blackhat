@@ -60,7 +60,7 @@ class netcat:
 
 	def handle(self, client_socket):
 		if self.args.execute:
-			output = execute(self.arags.execute)
+			output = execute(self.args.execute)
 			client_socket.send(output.encode())
 
 		elif self.args.upload:
@@ -73,7 +73,7 @@ class netcat:
 				else:
 					break
 
-			with open(self.args,upload, 'wb') as f:
+			with open(self.args.upload, 'wb') as f:
 				f.write(file_buffer)
 			message = f'Saved File : {self.args.upload}'
 			client_socket.send(message.encode())
@@ -102,7 +102,7 @@ if __name__ == '__main__':
 		epilog=textwrap.dedent('''Example:
 			netcat.py -t 192.168.1.2 -p 5555				#connect to server
 			netcat.py -t 192.168.1.2 -p 5555 -l -c          		#command shell
-			netcat.py -t 192.168.1.2 -p 5555 -l -u=myfile.txt               #file upload 
+			netcat.py -t 192.168.1.2 -p 5555 -l -u=\"myfile.txt\"               #file upload 
 			netcat.py -t 192.168.1.2 -p 5555 -l -e=\"cat /etc/passwd\"      #execute command
 			echo 'Hello' | ./netcat.py -t 192.168.1.2 -p 5555               #echo text to server
 
